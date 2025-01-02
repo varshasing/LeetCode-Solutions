@@ -14,3 +14,5 @@ I had three passes through the string, one forward pass for counting the lefthan
 I used O(n) space to create a vector of score for each position, and runtime complexity is also O(n).
 
 An issue I had with test cases such as "00" is that you cannot have empty splits, this required changing my code to not count the last index for lefthand score and to not count the first index for righthand score.
+Runtime: 100.00%
+Space: 18.31%
