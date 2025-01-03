@@ -15,6 +15,7 @@ I had three passes through the string, one forward pass for counting the lefthan
 I used O(n) space to create a vector of score for each position, and runtime complexity is also O(n).
 
 An issue I had with test cases such as "00" is that you cannot have empty splits, this required changing my code to not count the last index for lefthand score and to not count the first index for righthand score.
+
 Runtime: 100.00%
 Space: 18.31%
 
@@ -44,5 +45,27 @@ The time for calculating each query is two indexes into the vector, and each one
 This makes runtime complexity O(n + m), and space complexity is O(n + m) as well, with one vector storing int for each valid word -> running sum, and then another for storing the answer for each query.
 
 I had an issue with the longest test case where my first approach took too much time. This required changing my code structure to take less time to lookup the value returned for each query, which introduced the idea of a running sum total, as queries are done with a range of words.
+
 Runtime: 100.00%
 Memory: 50.44%
+
+## Jan 3: 2270. Number of Ways to Split Array
+
+You are given a 0-indexed integer array `nums` of length `n`.
+`nums` contains a valid split at index `i` if the following are true:
+- the sum of the first `i+1` elements is greater than or equal to the sum of the last `n-i-1` elements.
+- there is at least one element to the right of `i`. That is, `0<= i < n-1`
+
+Return the number of valid splits in `nums`.
+
+Input: nums = [10,4,-8,7]
+Output: 2
+
+### Approach
+
+For this question, you need to know the sum of your left and right side of the split. This signaled to me that I can compute the left and right sums and then iterate through the array, adding the next split number to the left side and subtracting it from the right side. This is a prefix sum approach, and helps reduce compute time compared to other approaches which will compute the sum for the left and right side from scratch with each split.
+
+I had an issue with a long test case where my sum had an overflow for integers. I fixed this by making my left and right summed parts instead being long long type.
+
+Runtime: 100.00%
+Memory: 62.32%
