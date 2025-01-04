@@ -69,3 +69,30 @@ I had an issue with a long test case where my sum had an overflow for integers. 
 
 Runtime: 100.00%
 Memory: 62.32%
+
+## Jan 4: 1930. Unique Length-3 Palindromic Subsequences
+
+Given a string s, return the number of unique palindromes of length three that are a subsequence of s.
+
+Note that even if there are multiple ways to obtain the same subsequence, it is still only counted once.
+
+A palindrome is a string that reads the same forwards and backwards.
+
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+For example, "ace" is a subsequence of "abcde".
+
+Input: s = "aabca"
+Output: 3
+
+### Approach
+
+A 3-lettered palindrome has to be a letter surrounded by the same letter. This introduces the idea of a prefix and suffix array for frequency counting. Because the string is limited to lowercase letters, this makes implementation bounded between 0-25 array size.
+To begin, precompute the right side, assuming all letters are to the right of the starting middle letter. The left side array will start as 0, and then increment as we go along the string.
+For every middle letter, check each of the positions in the left and right array. If there exists a letter that is in both the left and right side array, then there can exist a palindrome. Have a set that holds a unique hashing for each possible palindrome (multiply the middle letter by 26, adding the jth position of the array), as this will get rid of multiple of the same palindrome from being counted in a more memory-efficient manner.
+
+This takes two passes throughout the given array, s, and s passes through the 26-sized arrays, this makes the runtime O(n), with n being the number of letters in the given string.
+The memory complexity is dependent on the number of palindromes, with constant space taken for the left and right arrays and up to 26*26 different palindromes. Thid makes the space complexity O(m), with m being the size of the letter-set.
+
+Runtime: 77.00%
+Memory: 47.85%
