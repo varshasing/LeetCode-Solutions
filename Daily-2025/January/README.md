@@ -96,3 +96,29 @@ The memory complexity is dependent on the number of palindromes, with constant s
 
 Runtime: 77.00%
 Memory: 47.85%
+
+## Jan 5: 2381. Shifting Letters II
+
+You are given a string s of lowercase English letters and a 2D integer array shifts where shifts[i] = [starti, endi, directioni]. For every i, shift the characters in s from the index starti to the index endi (inclusive) forward if directioni = 1, or shift the characters backward if directioni = 0.
+
+Shifting a character forward means replacing it with the next letter in the alphabet (wrapping around so that 'z' becomes 'a'). Similarly, shifting a character backward means replacing it with the previous letter in the alphabet (wrapping around so that 'a' becomes 'z').
+
+Return the final string after all such shifts to s are applied.
+
+Input: s = "abc", shifts = [[0,1,0],[1,2,1],[0,2,1]]
+Output: "ace"
+
+### Approach
+
+The approach of shifting each letter in the range of letters for each query is too complex. Instead, use the Line Sweep method with a prefix sum.
+
+Line sweep keeps track of all noteworthy changes when moving a line of things at once, reducing computations. For this to work with a prefix sum, use the direction and range of each query. The prefix sum will keep track of the amount that the letters have to shift, and having a prefix sum means that we can keep track of the changes for an entire range.
+= if direction is 0, means shifting back one position. This means decrementing the starting range letter and incrementing the (ending range letter + 1)
+- if the direction is 1, means shifting forward one position. This means incrementing the staarting range letter and decrementing the (ending range letter + 1).
+
+After this is done for each query, have a variable to keep track of the current applied shifting, and shift from 'a' as based on this change, which can be calculated by subtracting 'a' from the current letter, plus the change % 26, + 26. all % 26. The nested % 26 makes it such that the change is within the range of -25 to 25, and + 26 brings it to a positive value, if it is negative. Having the outer % 26 accounts for positive change values, as this will bring it back into the range of 0 to 25 for the applied change from 'a'.
+
+Runtime is O(n), as calculating the prefix array is one pass, and applying the changes is one pass, with n being the number of elements in the array. The memory component is O(n), as we need to keep track of the applied changes accumulated with a prefix table.
+
+Runtime: 100.00%
+Memory: 69.79%
