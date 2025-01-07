@@ -122,3 +122,25 @@ Runtime is O(n), as calculating the prefix array is one pass, and applying the c
 
 Runtime: 100.00%
 Memory: 69.79%
+
+## 1769. Minimum Number of Operations to Move All Balls to Each Box
+
+You have n boxes. You are given a binary string boxes of length n, where boxes[i] is '0' if the ith box is empty, and '1' if it contains one ball.
+
+In one operation, you can move one ball from a box to an adjacent box. Box i is adjacent to box j if abs(i - j) == 1. Note that after doing so, there may be more than one ball in some boxes.
+
+Return an array answer of size n, where answer[i] is the minimum number of operations needed to move all the balls to the ith box.
+
+Each answer[i] is calculated considering the initial state of the boxes.
+
+Input: boxes = "110"
+Output: [1,1,3]
+
+### Approach
+
+I approached this problem with a postfix and prefix sum. It would take O($n^2$) time to compute with brute-force, so prefix sum helps reduce the runtime to O(n). This is done by having a prefix and postfix array, initalized to all 0s. The entries in these arrays are the number of operations it takes to move all of the balls from the left/right to this box index. This is calculated by adding the previous number of operations + the number of balls there are to the left/right. This works because each of the balls need to move one more additional step, which is the same as adding the number of balls.
+
+The runtime is O(n) as there are two passes for computing the prefix and postfix arrays, and an additional pass to add the two arrays together at their respective indices. The memory complexity is O(n), as there are three arrays of size n to store the prefix, postfix, and answer, with n being the number of elements in the string.
+
+Runtime: 100.00%
+Memory: 15.16%
